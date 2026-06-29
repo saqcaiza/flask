@@ -22,7 +22,7 @@ jobs:
       run: docker build -t ghcr.io/saqcaiza/ejercicio:3.0.0 .
 
     - name: Iniciar sesión en GitHub Container Registry
-      run: echo "${{ secrets.TOKEN_TAREA3 }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      run: echo "${{ secrets.TOKEN_WRT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Publicar la imagen
       run: docker push ghcr.io/saqcaiza/ejercicio:3.0.0
