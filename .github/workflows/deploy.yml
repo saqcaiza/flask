@@ -27,6 +27,8 @@ jobs:
     - name: Publicar la imagen
       run: docker push ghcr.io/saqcaiza/ejercicio:3.0.0
 
+
+      
     - name: Mostrar las variables o secrets
       run: |
         echo "probando servidor ssh"
