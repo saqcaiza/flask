@@ -1,0 +1,31 @@
+version: '3.9'
+
+services: 
+  steeven:
+    image: ghcr.io/saqcaiza/ejercicio:3.0.0
+    networks: 
+      - traefik-public
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.steeven.entrypoints=http"
+        - "traefik.http.routers.steeven.rule=Host(`steeven.byronrm.com`)"
+        - "traefik.http.middlewares.steeven-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.steeven.middlewares=steeven-https-redirect"
+        - "traefik.http.routers.steeven-secure.entrypoints=https"
+        - "traefik.http.routers.steeven-secure.rule=Host(`steeven.byronrm.com`)"
+        - "traefik.http.routers.steeven-secure.tls=true"
+        - "traefik.http.routers.steeven-secure.tls.certresolver=http"
+        - "traefik.http.routers.steeven-secure.service=tecticom"
+        - "traefik.http.services.steeven.loadbalancer.server.port=5000"
+        - "traefik.docker.network=traefik-public"   
+
+networks:
+  traefik-public:
+    external: true
